@@ -70,17 +70,19 @@ namespace dbcore.Controllers
 
 
         [HttpPut("see/put")]
-        public void Put([FromBody] User e)
+        public void Put([FromBody] List<User> e)
         {
             //_roadContext.aaaa.Update(e);
             //_roadContext.SaveChanges();
 
-            //var data = (from a in _roadContext.aaaa
-            //            where a.aaa == 399
-            //            select a);
+            var data = (from a in _roadContext.aaaa
+                        where a.aaa == 399
+                        select a).SingleOrDefault();
 
-            //_roadContext.aaaa.Update(data).CurrentValues.SetValues(e);
-            //_roadContext.SaveChanges();
+
+
+            _roadContext.aaaa.Update(data).CurrentValues.SetValues(e);
+            _roadContext.SaveChanges();
 
 
             //var source = _roadContext.aaaa.Where(e => e.aaa == 10).ToList();
@@ -90,16 +92,17 @@ namespace dbcore.Controllers
             //}
             //_roadContext.SaveChanges();
 
-            var num = 399;
-            _roadContext.aaaa.Where(d => d.aaa == 9)
-            .ExecuteUpdate(s => s
-                                  .SetProperty(p => p.aaa, num)
-                                  .SetProperty(p => p.sssa, "我不知道")
-                                  );
+            //var num = 399;
+            //_roadContext.aaaa.Where(d => d.aaa == 9)
+            //.ExecuteUpdate(s => s
+            //                      .SetProperty(p => p.aaa, num)
+            //                      .SetProperty(p => p.sssa, "我不知道")
+            //                      );
             //DimCustomer.Where(d => d.MiddleName == "C")
             //.ExecuteUpdate(s => s.SetProperty(p => p.MiddleName, p => p.FirstName + "CC" + p.LastName));
 
             //DimCustomer.Where(d => d.MiddleName == "CC").ExecuteDelete();
+
 
 
 

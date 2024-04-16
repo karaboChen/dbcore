@@ -1,5 +1,7 @@
+using dbcore.Fliiter;
 using dbcore.Models;
 using dbcore.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +19,8 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
 builder.Services.AddScoped<ReadService>();
 
 
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -26,15 +30,24 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(builder =>
     {
         builder
-            .WithOrigins("http://localhost:5173")
+            //.WithOrigins("http://localhost:5173")
+            .AllowAnyOrigin()
             .AllowAnyMethod()
             .AllowAnyHeader();
     });
 });
 
 
+//自訂一過濾器
+builder.Services.AddMvc(options =>
+{
+    options.Filters.Add(typeof( ActionFilter));   //有建構式的 請使用  typeof( ActionFilter))
+});
+
+
 var app = builder.Build();
 app.UseCors();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

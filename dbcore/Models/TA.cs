@@ -18,7 +18,8 @@ namespace dbcore.Models
 
     public class User
     {
-        public int aaa { get; set; }
+ 
+        public string sssa { get; set; }
 
     }
 
